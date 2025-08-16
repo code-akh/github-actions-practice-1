@@ -1,7 +1,7 @@
 name: first-manual-workflow
 
 on:
-  workflows-dispatch
+  workflow-dispatch
 
 jobs:
   first-job:
