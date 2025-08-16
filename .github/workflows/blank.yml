@@ -1,0 +1,17 @@
+name: first-manual-workflow
+
+on:
+  workflows-dispatch
+
+jobs:
+  first-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Step1 - Runs a 1 line script
+        run: echo Hello, world!
+
+      - name: Step2 - Runs a multi line script
+        run: |
+          run: echo Add other actions to build,
+          run: echo test, and deploy your project.
