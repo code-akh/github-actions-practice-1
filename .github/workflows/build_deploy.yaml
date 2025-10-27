@@ -1,0 +1,29 @@
+name: build-and-deploy-workflow
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  first-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Step1 - Checkout code
+        uses: actions/checkout@v3
+
+      - name: Step2 - Install dependencies
+        run: npm ci
+      
+      - name: Step3 - Lint
+        run: npm run lint
+
+      - name: Step4 - Test
+        run: npm test
+
+      - name: Step5 - Build
+        run: npm run build
+
+      - name: Step6 - Deploy
+        run: echo "Deploying application..."

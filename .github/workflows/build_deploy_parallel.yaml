@@ -1,45 +1,59 @@
-name: deploy_parallel
+name: build-and-deploy-parallel-workflow
+
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:
+      - master
+
 jobs:
-  lint:
+  install-job:
     runs-on: ubuntu-latest
     steps:
       - name: Step1 - Checkout code
         uses: actions/checkout@v3
+
       - name: Step2 - Install dependencies
         run: npm ci
-      - name: Step3 - Lint
-        run: npm run lint
-  test:
+  
+  lint-job:
     runs-on: ubuntu-latest
     steps:
       - name: Step1 - Checkout code
         uses: actions/checkout@v3
+      
       - name: Step2 - Install dependencies
         run: npm ci
+
       - name: Step3 - Lint
         run: npm run lint
-      - name: Step4 - Run tests
+
+  test-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step1 - Checkout code
+        uses: actions/checkout@v3
+
+      - name: Step2 - Install dependencies
+        run: npm ci
+
+      - name: Step3 - Lint
+        run: npm run lint
+
+      - name: Step4 - Test
         run: npm test
-  build:
+
+
+  deploy-job:
     runs-on: ubuntu-latest
     steps:
       - name: Step1 - Checkout code
         uses: actions/checkout@v3
+
       - name: Step2 - Install dependencies
         run: npm ci
-      - name: Step3 - Build project
+
+      - name: Step3 - Build
         run: npm run build
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Step1 - Checkout code
-        uses: actions/checkout@v3
-      - name: Step2 - Install dependencies
-        run: npm ci
-      - name: Step3 - Build project
-        run: npm run build
+
+      - name: Step4 - Deploy
+        run: echo "Deploying application..."

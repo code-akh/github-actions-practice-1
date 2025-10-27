@@ -1,0 +1,16 @@
+name: issue-creation-workflow
+
+on:
+  issues:
+    types: [opened, reopened]
+    
+jobs:
+  issue-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Output github issue details
+        run: | 
+          echo "${{ toJSON(github.event.issue.body) }}"
+          echo "--------------------------------------"
+          echo "${{ toJSON(github.event) }}"
